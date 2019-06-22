@@ -269,3 +269,82 @@ new Promise(function(resolve) {
     console.log('Third');
 });
 
+
+//Quiz::
+/*Instructions:
+			(1) Wrap this setTimeout in a Promise. resolve() in setTimeout's callback.
+			(2) console.log(this) inside the Promise and observe the results.
+			(3) Make sure wait returns the Promise too!
+			 */
+
+//Own Solution:::
+
+/*function wait(ms) {
+    var promise = new Promise(function(resolve) {
+        console.log(this);
+        window.setTimeout(function() {
+            resolve();
+        }, ms);
+        
+    });
+    return promise;
+};
+
+var milliseconds = 2000;
+wait(milliseconds).then(finish);
+
+
+// This is just here to help you test.
+function finish() {
+    var completion = document.querySelector('.completion');
+    completion.innerHTML = "Complete after " + milliseconds + "ms.";
+};*/
+
+
+//Solution:::
+/*
+function wait(ms) {
+	return new Promise(function(resolve) {
+		console.log(this);
+		window.setTimeout(function() {
+		    resolve();
+		}, ms);
+	});
+};
+
+var milliseconds = 2000;
+wait(milliseconds).then(finish);
+
+function finish() {
+	var completion = document.querySelector('.completion');
+	completion.innerHTML = "Complete after " + milliseconds + "ms.";
+};
+*/
+
+
+//*** Scope of 'this' inside the Promise:::
+/***The scope of 'this' could change depending on the context. If we use ES6 Arrow 
+function , let's see what happen?
+*/
+
+const wait = (ms) => {
+    const promise = new Promise((resolve) => {
+        console.log(this);
+        window.setTimeout(() => {
+            resolve();
+        }, ms);
+        
+    });
+    return promise;
+};
+
+var milliseconds = 2000;
+wait(milliseconds).then(finish);
+
+
+// This is just here to help you test.
+function finish() {
+    var completion = document.querySelector('.completion');
+    completion.innerHTML = "Complete after " + milliseconds + "ms.";
+};
+
